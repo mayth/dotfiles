@@ -1,4 +1,12 @@
 set nocompatible
+filetype off
+set rtp+=~/.vim/vundle.git/
+call vundle#rc()
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/unite.vim'
+Bundle 'thinca/vim-ref'
+Bundle 'thinca/vim-quickrun'
+filetype plugin indent on
 
 set number
 set showmode
@@ -25,6 +33,14 @@ set fencs=utf-8,euc-jp,cp932,iso-2022-jp
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
+set rtp+=~/vimfiles/vundle.git/
+call vundle#rc()
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/unite.vim'
+Bundle 'thinca/vim-ref'
+Bundle 'thinca/vim-quickrun'
+filetype plugin indent on
 
 " char-set auto recognize 
 if &encoding !=# 'utf-8'
