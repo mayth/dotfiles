@@ -39,6 +39,13 @@ set fencs=utf-8,euc-jp,cp932,iso-2022-jp
 let g:ref_use_vimproc = 0
 nmap ,rr :<C-u>Ref refe<Space>
 
+let g:quickrun_config = { }
+let g:quickrun_config['cs'] = {
+            \ 'command'  : 'dmcs',
+            \ 'exec'     : ['%c %o %s -out:%s:p:r.exe', 'mono %s:p:r.exe %a', 'rm -f %s:p:r.exe'],
+            \ 'tempfile' : '{tempname()}.cs',
+            \ }
+
 " for Python
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
