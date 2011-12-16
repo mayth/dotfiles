@@ -15,6 +15,7 @@ set ruler
 set showcmd
 set showmatch
 set laststatus=2
+set backspace=indent,start
 
 syntax on
 set autoindent
