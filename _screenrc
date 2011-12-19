@@ -4,7 +4,7 @@ autodetach on
 startup_message off
 
 hardstatus on
-hardstatus alwayslastline '%{= .b}%H%{-} %L=%-w%45L>%{=u b.}%n %t%{-}%+w %-17<%=%m/%d %02c:%s'
+hardstatus alwayslastline '%{= .b}%H%{-} %L=%-w%45L>%{=u bw}%n %t%{-}%+w %-17<%=%m/%d %02c:%s'
 caption always '%?%F%{= bw}%:%{= wk}%?%2n%f%07=%t%='
 sorendition '+r .b'
 
