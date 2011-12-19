@@ -16,6 +16,8 @@ set showcmd
 set showmatch
 set laststatus=2
 set backspace=indent,start
+noremap  
+noremap!  
 
 syntax on
 set autoindent
