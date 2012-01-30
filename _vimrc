@@ -23,16 +23,15 @@ syntax on
 set autoindent
 set smartindent
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 
 set mouse=a
 
 filetype on
 autocmd FileType c,cpp,perl set cindent
 set autoindent
-set shiftwidth=4
 set backup
 set enc=utf-8
 set fenc=utf-8
