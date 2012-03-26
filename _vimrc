@@ -4,14 +4,17 @@ set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/git-vim'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
+Bundle 'mattn/zencoding-vim'
 Bundle 'sudo.vim'
 filetype plugin indent on
 
 set number
 set showmode
 set ruler
+set cursorline
 set showcmd
 set showmatch
 set laststatus=2
@@ -28,6 +31,7 @@ set shiftwidth=2
 set softtabstop=2
 
 set mouse=a
+set ttymouse=xterm2
 
 filetype on
 autocmd FileType c,cpp,perl set cindent
