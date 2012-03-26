@@ -2,6 +2,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
+Bundle 'gmarik/vundle'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/git-vim'
@@ -9,6 +10,7 @@ Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
 Bundle 'mattn/zencoding-vim'
 Bundle 'sudo.vim'
+Bundle 'Align'
 filetype plugin indent on
 
 set number
