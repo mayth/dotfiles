@@ -9,6 +9,8 @@ Bundle 'Shougo/git-vim'
 Bundle 'thinca/vim-ref'
 Bundle 'thinca/vim-quickrun'
 Bundle 'mattn/zencoding-vim'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'taglist.vim'
 Bundle 'sudo.vim'
 Bundle 'Align'
 filetype plugin indent on
