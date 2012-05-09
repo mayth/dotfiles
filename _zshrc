@@ -1,0 +1,144 @@
+# Created by newuser for 4.3.15
+
+### key binding
+bindkey -e
+
+### misc
+setopt no_beep
+setopt hist_expand        # auto expand history in completion
+setopt magic_equal_subst  # filename expand
+REPORTTIME=10             # report the used time when the process used this time.
+
+### directory moving
+setopt auto_cd
+setopt auto_pushd
+
+### completion
+zstyle ':completion:*' format '%B%d%b'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
+zstyle ':completion:*:default' menu select=2
+zstyle ':completion:*:default' list-colors ""
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' verbose yes
+zstyle ':completion:sudo:*' environ PATH="$SUDO_PATH:$PATH"
+
+### history
+# set history size
+export HISTSIZE=2000
+export HISTFILE="$HOME/.history"
+export SAVEHIST=$HISTSIZE
+
+# ignore duplicate commands and begin with space
+setopt hist_ignorealldups
+setopt hist_ignorespace
+
+### enable extended-glob
+setopt extendedglob
+
+### path
+# add sbin to path when completion with sudo
+typeset -xT SUDO_PATH sudo_path
+typeset -U sudo_path
+sudo_path=({,/usr,/usr/local}/sbin(N-/))
+
+### grep
+# use GNU grep
+if type ggrep > /dev/null 2>&1; then
+  alias grep=ggrep
+fi
+export GREP_OPTIONS
+GREP_OPTIONS="--binary-files=without-match --directories=recurse --exclude=\*.tmp"
+if grep --help | grep -q -- --exclude-dir; then
+  GREP_OPTIONS="--exclude-dir=.svn --exclude-dir=.git --exclude-dir=.deps --exclude-dir=.libs $GREP_OPTIONS"
+fi
+if grep --help | grep -q -- --color; then
+  GREP_OPTIONS="--color=auto $GREP_OPTIONS"
+fi
+
+### Prompt setting
+RPROMPT="%F{green}[%d]%f"
+case ${UID} in
+# for root user
+0)
+  PROMPT="%B%F{yellow}%n@%m%k %B%F{blue}%1~ %# %b%f%k"
+  PROMPT2="%B%F{yellow}%n@%m%k %B%F{blue}%1~ %_> %b%f%k"
+  SPROMPT="zsh: correct '%R' to '%r' [No, Yes, Abort, Edit]?"
+  [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
+    PROMPT="%F{magenta}${HOST%%.*}$f ${PROMPT}"
+  ;;
+# for normal user
+*)
+  PROMPT="%B%F{green}%n@%m%k %B%F{blue}%1~ %# %b%f%k"
+  PROMPT2="%B%F{green}%n@%m%k %B%F{blue}%1~ %_> %b%f%k"
+  SPROMPT="zsh: correct '%R' to '%r' [No, Yes, Abort, Edit]?"
+  [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
+    PROMPT="%F{magenta}${HOST%%.*}%f ${PROMPT}"
+  ;;
+esac
+
+### incremental search
+if [ -f ~/.zsh/auto-fu.zsh ]; then
+  source ~/.zsh/auto-fu.zsh
+  function zle-line-init () {
+    auto-fu-init
+  }
+  zle -N zle-line-init
+  zstyle ':completion:*' completer _oldlist _complete
+fi
+
+### pager
+if [ -n "${PAGER#lv}" ]; then
+  export LV="-c -l" # -c to enable ASCII escape sequence coloring, -l to no line break in copying
+fi
+
+### user definition functions
+# create new window on connecting with tmux&mosh
+if [ $TERM = screen ]; then
+  function mosh_tmux() {
+    eval server=\${$#}
+    tmux new-window -n $@ "exec ssh $@"
+  }
+  alias mosh=mosh_tmux
+fi
+
+# completion for mosh
+function _mosh_hosts {
+  local -a config_hosts
+  local config
+  integer ind
+
+  # If users-hosts matches, we shouldn't complete anything else.
+  if [[ "$IPREFIX" == *@ ]]; then
+    _combination -s '[:@]' my-accounts users-hosts "users=${IPREFIX/@}" hosts "$@" && return
+  else
+    _combination -s '[:@]' my-accounts users-hosts \
+      ${opt_args[-l]:+"users=${opt_args[-l]:q}"} hosts "$@" && return
+  fi
+  if (( ind = ${words[(I)-F]} )); then
+    config=${~words[ind+1]}
+  else
+    config="$HOME/.ssh/config"
+  fi
+  if [[ -r $config ]]; then
+    local IFS=$'\t ' key hosts host
+    while read key hosts; do
+      if [[ "$key" == (#i)host ]]; then
+   for host in ${(z)hosts}; do
+      case $host in
+      (*[*?]*) ;;
+      (*) config_hosts+=("$host") ;;
+      esac
+   done
+      fi
+    done < "$config"
+    if (( ${#config_hosts} )); then
+      _wanted hosts expl 'remote host name' \
+  compadd -M 'm:{a-zA-Z}={A-Za-z} r:|.=* r:|=*' "$@" $config_hosts
+    fi
+  fi
+}
+
+compdef _mosh_hosts mosh
