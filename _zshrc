@@ -40,7 +40,7 @@ setopt extendedglob
 
 ### path
 # add sbin to path when completion with sudo
-typeset -xT SUDO_PATH sudo_path
+[ -z "$sudo_path" ] && typeset -xT SUDO_PATH sudo_path
 typeset -U sudo_path
 sudo_path=({,/usr,/usr/local}/sbin(N-/))
 
