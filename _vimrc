@@ -15,6 +15,10 @@ Bundle 'sudo.vim'
 Bundle 'Align'
 filetype plugin indent on
 
+if filereadable(expand('~/.vimrc.local'))
+  source ~/.vimrc.local
+endif
+
 set number
 set showmode
 set ruler
