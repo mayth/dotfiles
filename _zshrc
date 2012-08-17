@@ -7,7 +7,7 @@ bindkey -e
 setopt no_beep
 setopt hist_expand        # auto expand history in completion
 setopt magic_equal_subst  # filename expand
-REPORTTIME=10             # report the used time when the process used this time.
+REPORTTIME=30             # report the used time when the process used this time.
 
 ### directory moving
 setopt auto_cd
