@@ -50,13 +50,7 @@ if type ggrep > /dev/null 2>&1; then
   alias grep=ggrep
 fi
 export GREP_OPTIONS
-GREP_OPTIONS="--binary-files=without-match --directories=recurse --exclude=\*.tmp"
-if grep --help | grep -q -- --exclude-dir; then
-  GREP_OPTIONS="--exclude-dir=.svn --exclude-dir=.git --exclude-dir=.deps --exclude-dir=.libs $GREP_OPTIONS"
-fi
-if grep --help | grep -q -- --color; then
-  GREP_OPTIONS="--color=auto $GREP_OPTIONS"
-fi
+GREP_OPTIONS="--binary-files=without-match --directories=recurse --exclude=\*.tmp --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.deps --exclude-dir=.libs --color=auto"
 
 ### Prompt setting
 RPROMPT="%F{green}[%d]%f"
