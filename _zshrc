@@ -1,5 +1,9 @@
 # Created by newuser for 4.3.15
 
+if [ -f ~/.zshrc.local ]; then
+  source ~/.zshrc.local
+fi
+
 ### key binding
 bindkey -e
 
@@ -133,6 +137,10 @@ function _mosh_hosts {
 
 compdef _mosh_hosts mosh
 
+if [ -f ~/.zshrc.local.after ]; then
+  source ~/.zshrc.local.after
+fi
+
 # Auto exec tmux
 if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > /dev/null; then
     if ( tmux has-session ); then
@@ -149,3 +157,4 @@ if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > 
         tmux
     fi
 fi
+
