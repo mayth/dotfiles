@@ -13,6 +13,9 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'taglist.vim'
 Bundle 'sudo.vim'
 Bundle 'Align'
+Bundle 'fuenor/JpFormat.vim'
+Bundle 'Shougo/vinarise'
+Bundle 's-yukikaze/vinarise-plugin-peanalysis'
 filetype plugin indent on
 
 if filereadable(expand('~/.vimrc.local'))
@@ -43,6 +46,7 @@ set ttymouse=xterm2
 
 filetype on
 autocmd FileType c,cpp,perl set cindent
+
 set autoindent
 set backup
 set enc=utf-8
