@@ -5,12 +5,13 @@ if has('vim_starting')
 endif
 call neobundle#rc(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', { 'build' : { 'mac' : 'make -f make_mac.mak' } }
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/git-vim'
 NeoBundle 'thinca/vim-ref'
+NeoBundle 'taka84u9/vim-ref-ri'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'vim-ruby/vim-ruby'
@@ -22,6 +23,14 @@ NeoBundle 'Shougo/vinarise'
 NeoBundle 's-yukikaze/vinarise-plugin-peanalysis'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'Shougo/neocomplcache-rsense'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'ruby-matchit'
+NeoBundle 'ujihisa/unite-rake'
+NeoBundle 'rhysd/unite-ruby-require.vim'
+NeoBundle 'rhysd/neco-ruby-keyword-args'
+NeoBundle 'tpope/vim-rbenv'
+NeoBundle 'tpope/vim-haml'
 
 NeoBundleCheck
 
@@ -123,7 +132,7 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 	
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
+imap <expr><CR>  neocomplcache#smart_close_popup() . "<CR>" . "<Plug>DiscretionaryEnd"
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -133,10 +142,10 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 " For cursor moving in insert mode(Not recommended)
-inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
+"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
 
 " AutoComplPop like behavior.
 "let g:neocomplcache_enable_auto_select = 1
