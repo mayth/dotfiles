@@ -1,22 +1,31 @@
 set nocompatible
-filetype off
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/git-vim'
-Bundle 'thinca/vim-ref'
-Bundle 'thinca/vim-quickrun'
-Bundle 'mattn/zencoding-vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'taglist.vim'
-Bundle 'sudo.vim'
-Bundle 'Align'
-Bundle 'fuenor/JpFormat.vim'
-Bundle 'Shougo/vinarise'
-Bundle 's-yukikaze/vinarise-plugin-peanalysis'
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/vimproc'
+
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/git-vim'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'taglist.vim'
+NeoBundle 'sudo.vim'
+NeoBundle 'Align'
+NeoBundle 'fuenor/JpFormat.vim'
+NeoBundle 'Shougo/vinarise'
+NeoBundle 's-yukikaze/vinarise-plugin-peanalysis'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'Shougo/neocomplcache-rsense'
+
 filetype plugin indent on
+
+NeoBundleCheck
 
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
