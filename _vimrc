@@ -1,13 +1,13 @@
 set nocompatible
+
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+  set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#rc(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-
 NeoBundle 'Shougo/vimproc'
-
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/git-vim'
 NeoBundle 'thinca/vim-ref'
@@ -23,13 +23,20 @@ NeoBundle 's-yukikaze/vinarise-plugin-peanalysis'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'Shougo/neocomplcache-rsense'
 
-filetype plugin indent on
-
 NeoBundleCheck
+
+filetype plugin indent on
 
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
+let g:rsenseHome = '/usr/local/Cellar/rsense/0.3/libexec'
+let g:rsenseUseOmniFunc = 1
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 set number
 set showmode
