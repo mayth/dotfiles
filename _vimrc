@@ -31,6 +31,9 @@ NeoBundle 'rhysd/unite-ruby-require.vim'
 NeoBundle 'rhysd/neco-ruby-keyword-args'
 NeoBundle 'tpope/vim-rbenv'
 NeoBundle 'tpope/vim-haml'
+NeoBundle 'cohama/the-ocamlspot.vim'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
+NeoBundle 'itchyny/lightline.vim'
 
 NeoBundleCheck
 
@@ -78,21 +81,46 @@ set enc=utf-8
 set fenc=utf-8
 set fencs=utf-8,euc-jp,cp932,iso-2022-jp
 
+" colortheme
+let g:lightline = {
+  \ 'colorscheme': 'Tomorrow_Night'
+  \ }
+
 """ ref.vim
 let g:ref_use_vimproc = 0
 nmap ,rr :<C-u>Ref refe<Space>
 
 let g:quickrun_config = { }
+let g:quickrun_config._ = {'runner' : 'vimproc'}
+
+" C#
 let g:quickrun_config['cs'] = {
             \ 'command'  : 'dmcs',
             \ 'exec'     : ['%c %o %s -out:%s:p:r.exe', 'mono %s:p:r.exe %a', 'rm -f %s:p:r.exe'],
             \ 'tempfile' : '{tempname()}.cs',
             \ }
 
+" RSpec
+let g:quickrun_config['ruby.rspec'] = {
+  \ 'command' : 'rspec',
+  \ 'cmdopt'  : 'bundle exec',
+  \ 'exec'    : '%o %c %s'
+  \ }
+augroup RSpec
+  autocmd!
+  autocmd BufWinEnter, BufNewFile *_spec.rb set filetype=ruby.rspec
+augroup END
+
 " for Python
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
+" IL assembler
+augroup ilasm
+  autocmd!
+  autocmd BufRead, BufNewFile *.il set filetype=ilasm
+augroup END
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -122,14 +150,25 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-	
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
 imap <expr><CR>  neocomplcache#smart_close_popup() . "<CR>" . "<Plug>DiscretionaryEnd"
@@ -178,6 +217,10 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
+" Merlin (OCaml completion)
+set rtp+=$SHARE_DIR/ocamlmerlin/vim
+set rtp+=$SHARE_DIR/ocamlmerlin/vimbufsync
 
 " char-set auto recognize 
 if &encoding !=# 'utf-8'
