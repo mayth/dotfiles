@@ -34,6 +34,7 @@ NeoBundle 'tpope/vim-haml'
 NeoBundle 'cohama/the-ocamlspot.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'slim-template/vim-slim'
 
 NeoBundleCheck
 
