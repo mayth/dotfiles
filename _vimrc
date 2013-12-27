@@ -35,10 +35,15 @@ NeoBundle 'cohama/the-ocamlspot.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'slim-template/vim-slim'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'tpope/vim-rails'
 
 NeoBundleCheck
 
 filetype plugin indent on
+
+colorscheme Tomorrow-Night
 
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
@@ -222,6 +227,16 @@ endif
 " Merlin (OCaml completion)
 set rtp+=$SHARE_DIR/ocamlmerlin/vim
 set rtp+=$SHARE_DIR/ocamlmerlin/vimbufsync
+
+" Indent guide
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+if !has("gui_running")
+  let g:indent_guides_auto_colors = 0
+  hi IndentGuidesOdd ctermbg=236
+  hi IndentGuidesEven ctermbg=238
+endif
 
 " char-set auto recognize 
 if &encoding !=# 'utf-8'
