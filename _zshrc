@@ -34,6 +34,7 @@ zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' verbose yes
 zstyle ':completion:sudo:*' environ PATH="$SUDO_PATH:$PATH"
 zstyle ':completion:*' ignore-parents parent pwd ..
+zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?~' '*\#'
 
 ### history
 # set history size
@@ -91,14 +92,16 @@ if [ -f ~/.zsh/vcs_info.zsh ]; then
 fi
 
 ### incremental search
-if [ -f ~/.zsh/auto-fu.zsh ]; then
-  source ~/.zsh/auto-fu.zsh
+if [ -f ~/.zsh/auto-fu.zsh/auto-fu.zsh ]; then
+  source ~/.zsh/auto-fu.zsh/auto-fu.zsh
   function zle-line-init () {
     auto-fu-init
   }
   zle -N zle-line-init
-  zstyle ':completion:*' completer _oldlist _complete
+  zstyle ':auto-fu:var' postdisplay $''
+  zle -N zle-keymap-select auto-fu-zle-keymap-select
 fi
+zstyle ':completion:*' completer _oldlist _complete _expand _approximate _match _prefix
 
 ### pager
 if [ -n "${PAGER#lv}" ]; then
