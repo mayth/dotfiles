@@ -85,9 +85,7 @@ case ${UID} in
   ;;
 # for normal user
 *)
-  local kakashi="ただのカカシですな"$'\n'
-  local empty=""
-  PROMPT="%(?.${empty}.${kakashi})%B%F{green}%n@%m%k %B%F{blue}%c %# %b%f%k"
+  PROMPT="%B%F{green}%n@%m%k %B%F{blue}%c %# %b%f%k"
   PROMPT2="%B%F{green}%n@%m%k %B%F{blue}%c %_> %b%f%k"
   SPROMPT="zsh: correct %B'%R'%b to %B'%r'%b [No, Yes, Abort, Edit]? "
   [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
@@ -197,3 +195,7 @@ fi
 if [ -f ~/.zsh/rake.zsh ]; then
   source ~/.zsh/rake.zsh
 fi
+
+TRAPZERR(){
+  echo "ただのカカシですな";
+}
