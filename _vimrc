@@ -9,6 +9,7 @@ source ~/.vim/encode.vim
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', { 'build' : { 'mac' : 'make -f make_mac.mak' } }
+NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -41,6 +42,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'adimit/prolog.vim'
 
 call neobundle#end()
 
@@ -89,6 +91,10 @@ set fencs=utf-8,euc-jp,cp932,iso-2022-jp
 let g:lightline = {
   \ 'colorscheme': 'Tomorrow_Night'
   \ }
+
+""" vimshell
+let g:vimshell_prompt_expr = 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
 """ ref.vim
 let g:ref_use_vimproc = 0
