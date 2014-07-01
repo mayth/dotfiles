@@ -6,6 +6,10 @@ endif
 
 source ~/.vim/encode.vim
 
+if !has('gui_running')
+  set t_Co=256
+endif
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', {
