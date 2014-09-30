@@ -199,6 +199,19 @@ if which heroku > /dev/null; then
   export PATH="/usr/local/heroku/bin:$PATH"
 fi
 
+### Make alias 'pbcopy/pbpaste' if they does not exist
+if ! which pbcopy > /dev/null; then
+  if which xsel > /dev/null; then
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
+  elif which xclip > /dev/null; then
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+  else
+    echo "no clipboard interface found. install 'xsel' or 'xclip'."
+  fi
+fi
+
 if [ -f ~/.zshrc.local.after ]; then
   source ~/.zshrc.local.after
 fi
