@@ -27,3 +27,5 @@ bind w windowlist -b
 bind u encoding UTF-8
 bind e encoding eucJP
 bind s encoding SJIS
+
+shell -$SHELL

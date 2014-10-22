@@ -6,9 +6,20 @@ endif
 
 source ~/.vim/encode.vim
 
+if !has('gui_running')
+  set t_Co=256
+endif
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc', { 'build' : { 'mac' : 'make -f make_mac.mak' } }
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \     'windows' : 'tools\\update-dll-mingw',
+  \     'cygwin' : 'make -f make_cygwin.mak',
+  \     'mac' : 'make -f make_mac.mak',
+  \     'unix' : 'make -f make_unix.mak'
+  \   },
+  \ }
 NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
@@ -17,7 +28,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'taka84u9/vim-ref-ri'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'taglist.vim'
 NeoBundle 'sudo.vim'

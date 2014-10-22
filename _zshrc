@@ -7,15 +7,6 @@ if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
 
-# bash compatibility
-if [ -f ~/.bashrc ]; then
-  source ~/.bashrc
-fi
-
-if [ -f ~/.bash_profile ]; then
-  source ~/.bash_profile
-fi
-
 ### key binding
 bindkey -e
 
@@ -169,8 +160,13 @@ function _mosh_hosts {
 
 compdef _mosh_hosts mosh
 
-if [ -f ~/.zshrc.local.after ]; then
-  source ~/.zshrc.local.after
+### Editor
+if builtin command -v vim > /dev/null; then
+  export EDITOR='vim'
+elif builtin command -v vi > /dev/null; then
+  export EDITOR='vi'
+elif builtin command -v nano > /dev/null; then
+  export EDITOR='nano'
 fi
 
 # Auto exec tmux
@@ -198,5 +194,22 @@ fi
 ### Rake completion
 if [ -f ~/.zsh/rake.zsh ]; then
   source ~/.zsh/rake.zsh
+fi
+
+### Make alias 'pbcopy/pbpaste' if they does not exist
+if ! which pbcopy > /dev/null; then
+  if which xsel > /dev/null; then
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
+  elif which xclip > /dev/null; then
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+  else
+    echo "no clipboard interface found. install 'xsel' or 'xclip'."
+  fi
+fi
+
+if [ -f ~/.zshrc.local.after ]; then
+  source ~/.zshrc.local.after
 fi
 
