@@ -3,10 +3,6 @@ autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
 autoload -Uz colors
 
-if [ -f ~/.zshrc.local ]; then
-  source ~/.zshrc.local
-fi
-
 ### key binding
 bindkey -e
 
@@ -209,7 +205,7 @@ if ! which pbcopy > /dev/null; then
   fi
 fi
 
-if [ -f ~/.zshrc.local.after ]; then
-  source ~/.zshrc.local.after
+if [ -f ~/.zshrc.local ]; then
+  source ~/.zshrc.local
 fi
 
