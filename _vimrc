@@ -54,6 +54,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'adimit/prolog.vim'
+NeoBundle 'toyamarinyon/vim-swift'
 
 call neobundle#end()
 
@@ -86,11 +87,16 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
+" enable modeline
+set modeline
+set modelines=5
+
 set mouse=a
 set ttymouse=xterm2
 
 filetype on
 autocmd FileType c,cpp,perl set cindent
+autocmd FileType c,cpp set ts=4 sts=4 sw=4
 
 set autoindent
 set backup
@@ -131,6 +137,14 @@ augroup RSpec
   autocmd!
   autocmd BufWinEnter, BufNewFile *_spec.rb set filetype=ruby.rspec
 augroup END
+
+" Swift
+if has("mac")
+  let g:quickrun_config['swift'] = {
+  \ 'command': 'swift',
+  \ 'exec': '%c %o %s'
+  \}
+endif
 
 " for Python
 autocmd FileType python setl autoindent
