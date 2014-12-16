@@ -55,6 +55,7 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'adimit/prolog.vim'
 NeoBundle 'toyamarinyon/vim-swift'
+NeoBundle 'kongo2002/fsharp-vim'
 
 call neobundle#end()
 
@@ -96,7 +97,8 @@ set ttymouse=xterm2
 
 filetype on
 autocmd FileType c,cpp,perl set cindent
-autocmd FileType c,cpp set ts=4 sts=4 sw=4
+autocmd FileType c,cpp setlocal ts=4 sts=4 sw=4
+autocmd FileType fsharp setlocal ts=4 sts=4 sw=4
 
 set autoindent
 set backup
