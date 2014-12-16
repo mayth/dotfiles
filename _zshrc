@@ -199,6 +199,13 @@ if which heroku > /dev/null; then
   export PATH="/usr/local/heroku/bin:$PATH"
 fi
 
+### pyenv
+if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
+  export PATH="$HOME/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
 ### Make alias 'pbcopy/pbpaste' if they does not exist
 if ! which pbcopy > /dev/null; then
   if which xsel > /dev/null; then
