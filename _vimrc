@@ -56,6 +56,8 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'adimit/prolog.vim'
 NeoBundle 'toyamarinyon/vim-swift'
 NeoBundle 'kongo2002/fsharp-vim'
+NeoBundle 'alpaca-tc/alpaca_tags'
+NeoBundle 'AndrewRadev/switch.vim'
 
 call neobundle#end()
 
