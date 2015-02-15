@@ -58,6 +58,7 @@ NeoBundle 'toyamarinyon/vim-swift'
 NeoBundle 'kongo2002/fsharp-vim'
 NeoBundle 'alpaca-tc/alpaca_tags'
 NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle 'editorconfig/editorconfig-vim'
 
 call neobundle#end()
 
