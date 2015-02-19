@@ -1,22 +1,7 @@
 # load
-autoload -U compinit && compinit
-autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
 autoload -Uz colors
-
-if [ -f ~/.zshrc.local ]; then
-  source ~/.zshrc.local
-fi
-
-# bash compatibility
-if [ -f ~/.bashrc ]; then
-  source ~/.bashrc
-fi
-
-if [ -f ~/.bash_profile ]; then
-  source ~/.bash_profile
-fi
 
 ### key binding
 bindkey -e
@@ -32,6 +17,9 @@ setopt auto_cd
 setopt auto_pushd
 
 ### completion
+autoload -U compinit && compinit
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
@@ -96,6 +84,7 @@ case ${UID} in
 esac
 
 ### vcs_info
+autoload -Uz vcs_info
 if [ -f ~/.zsh/vcs_info.zsh ]; then
   source ~/.zsh/vcs_info.zsh
 fi
@@ -110,7 +99,7 @@ if [ -f ~/.zsh/auto-fu.zsh/auto-fu.zsh ]; then
   zstyle ':auto-fu:var' postdisplay $''
   zle -N zle-keymap-select auto-fu-zle-keymap-select
 fi
-zstyle ':completion:*' completer _oldlist _complete _expand _approximate _match _prefix
+zstyle ':completion:*' completer _list _complete _expand _approximate _match _prefix
 
 ### pager
 if [ -n "${PAGER#lv}" ]; then
@@ -167,8 +156,13 @@ function _mosh_hosts {
 
 compdef _mosh_hosts mosh
 
-if [ -f ~/.zshrc.local.after ]; then
-  source ~/.zshrc.local.after
+### Editor
+if builtin command -v vim > /dev/null; then
+  export EDITOR='vim'
+elif builtin command -v vi > /dev/null; then
+  export EDITOR='vi'
+elif builtin command -v nano > /dev/null; then
+  export EDITOR='nano'
 fi
 
 # Auto exec tmux
@@ -197,3 +191,33 @@ fi
 if [ -f ~/.zsh/rake.zsh ]; then
   source ~/.zsh/rake.zsh
 fi
+
+### Added by the Heroku Toolbelt
+if which heroku > /dev/null; then
+  export PATH="/usr/local/heroku/bin:$PATH"
+fi
+
+### pyenv
+if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
+  export PATH="$HOME/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+### Make alias 'pbcopy/pbpaste' if they does not exist
+if ! which pbcopy > /dev/null; then
+  if which xsel > /dev/null; then
+    alias pbcopy='xsel --clipboard --input'
+    alias pbpaste='xsel --clipboard --output'
+  elif which xclip > /dev/null; then
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+  else
+    echo "no clipboard interface found. install 'xsel' or 'xclip'."
+  fi
+fi
+
+if [ -f ~/.zshrc.local ]; then
+  source ~/.zshrc.local
+fi
+

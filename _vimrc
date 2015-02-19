@@ -6,12 +6,20 @@ endif
 
 source ~/.vim/encode.vim
 
+if !has('gui_running')
+  set t_Co=256
+endif
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc', { 'build' : {
-  \   'mac' : 'make -f make_mac.mak',
-  \   'unix' : 'make -f make_unix.mak'
-  \ } }
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \     'windows' : 'tools\\update-dll-mingw',
+  \     'cygwin' : 'make -f make_cygwin.mak',
+  \     'mac' : 'make -f make_mac.mak',
+  \     'unix' : 'make -f make_unix.mak'
+  \   },
+  \ }
 NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
@@ -20,7 +28,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'taka84u9/vim-ref-ri'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'taglist.vim'
 NeoBundle 'sudo.vim'
@@ -46,6 +54,11 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'adimit/prolog.vim'
+NeoBundle 'toyamarinyon/vim-swift'
+NeoBundle 'kongo2002/fsharp-vim'
+NeoBundle 'alpaca-tc/alpaca_tags'
+NeoBundle 'AndrewRadev/switch.vim'
+NeoBundle 'editorconfig/editorconfig-vim'
 
 call neobundle#end()
 
@@ -78,11 +91,17 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
+" enable modeline
+set modeline
+set modelines=5
+
 set mouse=a
 set ttymouse=xterm2
 
 filetype on
 autocmd FileType c,cpp,perl set cindent
+autocmd FileType c,cpp setlocal ts=4 sts=4 sw=4
+autocmd FileType fsharp setlocal ts=4 sts=4 sw=4
 
 set autoindent
 set backup
@@ -123,6 +142,14 @@ augroup RSpec
   autocmd!
   autocmd BufWinEnter, BufNewFile *_spec.rb set filetype=ruby.rspec
 augroup END
+
+" Swift
+if has("mac")
+  let g:quickrun_config['swift'] = {
+  \ 'command': 'swift',
+  \ 'exec': '%c %o %s'
+  \}
+endif
 
 " for Python
 autocmd FileType python setl autoindent
