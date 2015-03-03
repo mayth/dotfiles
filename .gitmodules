@@ -4,3 +4,6 @@
 [submodule "zshfiles/auto-fu.zsh"]
 	path = zshfiles/auto-fu.zsh
 	url = https://github.com/hchbaw/auto-fu.zsh.git
+[submodule "zshfiles/z"]
+	path = zshfiles/z
+	url = git@github.com:rupa/z.git
