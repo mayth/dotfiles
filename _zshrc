@@ -3,6 +3,11 @@ autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
 autoload -Uz colors
 
+### load z - jump around
+if [ -f ~/.zsh/z/z.sh ]; then
+  . ~/.zsh/z/z.sh
+fi
+
 ### key binding
 bindkey -e
 
