@@ -217,8 +217,6 @@ if ! which pbcopy > /dev/null; then
   elif which xclip > /dev/null; then
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
-  else
-    echo "no clipboard interface found. install 'xsel' or 'xclip'."
   fi
 fi
 
