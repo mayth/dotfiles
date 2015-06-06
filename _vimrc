@@ -56,6 +56,7 @@ endfunction
 
 """ source plugin settings
 call s:source_plugin_setting('neocomplete')
+call s:source_plugin_setting('neosnippet')
 
 """"" end of script
 set secure
