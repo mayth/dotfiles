@@ -8,6 +8,7 @@ function lnshome() {
         ln -s "${dotfiles_dir}/$1" "${HOME}/$2"
     else
         echo "${HOME}/$2 already exists"
+        return 1
     fi
 }
 
