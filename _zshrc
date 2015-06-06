@@ -207,13 +207,6 @@ for f in ~/.zsh/envs/*; do
   source $f
 done
 
-### pyenv
-if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
-  export PATH="$HOME/.pyenv/bin:$PATH"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
-
 ### Make alias 'pbcopy/pbpaste' if they does not exist
 if ! which pbcopy > /dev/null; then
   if which xsel > /dev/null; then
