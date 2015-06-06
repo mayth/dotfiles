@@ -1,0 +1,6 @@
+#!/bin/zsh
+rbenv_root=${RBENV_ROOT:-$HOME/.rbenv}
+if [ -d "$rbenv_root" ]; then
+    path=(${rbenv_root}/bin $path)
+    eval "$(rbenv init -)"
+fi

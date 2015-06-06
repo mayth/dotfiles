@@ -202,6 +202,11 @@ if which heroku > /dev/null; then
   export PATH="/usr/local/heroku/bin:$PATH"
 fi
 
+### source *env initialization scripts
+for f in ~/.zsh/envs/*; do
+  source $f
+done
+
 ### pyenv
 if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
   export PATH="$HOME/.pyenv/bin:$PATH"
