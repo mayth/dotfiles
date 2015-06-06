@@ -14,6 +14,11 @@ rbenv_ctags_repo='https://github.com/tpope/rbenv-ctags.git'
 rbenv_root=${RBENV_ROOT:-${HOME}/.rbenv}
 rbenv_plugin_dir="${rbenv_root}/plugins"
 
+if [ -d "${rbenv_root}" ] || type rbenv > /dev/null 2>&1; then
+    echo "rbenv is already installed" 1>&2
+    exit 1
+fi
+
 git clone "$rbenv_repo" "$rbenv_root"
 git clone "$ruby_build_repo" "${rbenv_plugin_dir}/ruby-build"
 git clone "$rbenv_update_repo" "${rbenv_plugin_dir}/rbenv-update"

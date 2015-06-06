@@ -1,7 +1,7 @@
 #!/bin/zsh
 pyenv_root=${PYENV_ROOT:-${HOME}/.pyenv}
 if [ -d "$pyenv_root" ]; then
-  export PATH="${pyenv_root}/bin:$PATH"
+  path=(${pyenv_root}/bin $path)
   eval "$(pyenv init -)"
   if [ -d "${pyenv_root}/plugins/pyenv-virtualenv" ]; then
     eval "$(pyenv virtualenv-init -)"

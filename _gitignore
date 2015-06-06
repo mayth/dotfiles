@@ -1,0 +1,40 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+*~
+*.swp
+*.swo
+
+# Icon must ends with two \r.
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Xamarin Studio stuff
+*.userprefs
+
+# Sublime stuff
+*.sublime-project
+*.sublime-workspace
+
+# zsh completion cache
+.rake_tasks
+
+# direnv
+.envrc
+
+# Bundler
+.bundle
+vendor/bundle
+
+# yard (ruby documents)
+.yardoc/
+
+# npm
+node_modules/
+

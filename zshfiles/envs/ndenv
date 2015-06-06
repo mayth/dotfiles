@@ -1,0 +1,6 @@
+#!/bin/zsh
+ndenv_root=${NDENV_ROOT:-${HOME}/.ndenv}
+if [ -d "$ndenv_root" ]; then
+  path=(${ndenv_root}/bin $path)
+  eval "$(ndenv init -)"
+fi
