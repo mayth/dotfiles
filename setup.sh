@@ -12,6 +12,12 @@ function lnshome() {
     fi
 }
 
+function set_git_config() {
+    if ! git config --global "$1" > /dev/null 2>&1; then
+        git config --global "$1" "$2"
+    fi
+}
+
 function run_xenv_setup() {
     "${dotfiles_dir}/setup/$1.sh"
 }
@@ -26,6 +32,11 @@ lnshome _vimrc .vimrc
 lnshome vimfiles .vim
 lnshome _tmux.conf .tmux.conf
 lnshome _screenrc .screenrc
+lnshome _gitignore .gitignore_global
+
+### git config
+set_git_config push.default simple
+set_git_config core.excludesfile "${HOME}/.gitignore_global"
 
 ### run *env setup script
 run_xenv_setup rbenv
