@@ -32,6 +32,10 @@ set laststatus=2
 set backspace=start,eol,indent
 set modeline
 set modelines=3
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 
 " highlighting is very important!
 syntax enable
