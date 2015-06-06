@@ -8,6 +8,10 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+if !has('gui_running')
+    set t_Co=256
+endif
+
 """"" Listing of plugins and install/check them
 call neobundle#begin(expand('~/.vim/bundle/'))
 
