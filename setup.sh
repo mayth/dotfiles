@@ -11,6 +11,10 @@ function lnshome() {
     fi
 }
 
+function run_xenv_setup() {
+    "${dotfiles_dir}/setup/$1.sh"
+}
+
 ### init submodule
 (cd "${dotfiles_dir}"; git submodule update --init)
 
@@ -23,6 +27,6 @@ lnshome _tmux.conf .tmux.conf
 lnshome _screenrc .screenrc
 
 ### run *env setup script
-setup/rbenv.sh
-setup/pyenv.sh
-setup/ndenv.sh
+run_xenv_setup rbenv
+run_xenv_setup pyenv
+run_xenv_setup ndenv
