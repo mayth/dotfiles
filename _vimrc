@@ -52,6 +52,20 @@ set ttymouse=xterm2
 "colorscheme Tomorrow-Night
 colorscheme hybrid
 
+""""" filetype settings
+""" define helper function
+function! s:source_filetype_setting(filetype)
+    if filereadable(expand('~/.vim/filetype.d/' . a:filetype . '.vim'))
+        execute 'source' expand('~/.vim/filetype.d/' . a:filetype . '.vim')
+    else
+        echo 'setting file for ' . a:filetype . ' is not readble!'
+    endif
+endfunction
+
+""" source filetype settings
+call s:source_filetype_setting('cpp')
+
+
 """"" plugin settings
 """ define helper function
 function! s:source_plugin_setting(pluginname)
@@ -65,20 +79,6 @@ endfunction
 """ source plugin settings
 call s:source_plugin_setting('neocomplete')
 call s:source_plugin_setting('neosnippet')
-
-
-""""" filetype settings
-""" define helper function
-function! s:source_filetype_setting(filetype)
-    if filereadable(expand('~/.vim/filetype.d/' . a:filetype . '.vim'))
-        execute 'source' expand('~/.vim/filetype.d/' . a:filetype . '.vim')
-    else
-        echo 'setting file for ' . a:filetype . ' is not readble!'
-    endif
-endfunction
-
-""" source filetype settings
-call s:source_filetype_setting('cpp')
 
 """"" end of script
 set secure
