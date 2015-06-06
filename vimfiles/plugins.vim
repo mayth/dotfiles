@@ -13,5 +13,12 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'Shougo/neocomplete.vim'
 
+""" C++
+NeoBundleLazy 'justmao945/vim-clang', {
+            \ 'autoload': {
+            \   'filetypes': ['cpp']
+            \ }
+            \ }
+
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
