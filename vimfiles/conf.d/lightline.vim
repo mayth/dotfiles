@@ -9,7 +9,8 @@ let g:lightline = {
             \   'right': [
             \       [ 'syntastic', 'lineinfo' ],
             \       [ 'percent' ],
-            \       [ 'fileformat', 'fileencoding', 'filetype' ]
+            \       [ 'fileformat', 'fileencoding', 'filetype' ],
+            \       [ 'fugitive' ]
             \   ]
             \ },
             \ 'component_expand': {
@@ -20,7 +21,8 @@ let g:lightline = {
             \ },
             \ 'component_function': {
             \   'pyenv': 'pyenv#statusline#component',
-            \   'filename': 'MyFilename'
+            \   'filename': 'MyFilename',
+            \   'fugitive': 'MyFugitive'
             \ }
             \ }
 
@@ -37,4 +39,8 @@ function! MyFilename()
     return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
         \ ('' != fname ? fname : '[No Name]') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+    return exists('*fugitive#head') ? fugitive#head() : ''
 endfunction

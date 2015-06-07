@@ -14,6 +14,7 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'cocopon/lightline-hybrid.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 
+""" Editing
 NeoBundle 'fuenor/JpFormat.vim'
 
 """ Development
@@ -21,6 +22,8 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+" git
+NeoBundle 'tpope/vim-fugitive'
 
 """ C++
 NeoBundleLazy 'justmao945/vim-clang', {
