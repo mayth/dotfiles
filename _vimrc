@@ -21,28 +21,70 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
+" Reset autocmd
+augroup MyAutoCmd
+    autocmd!
+augroup END
+
 """"" Basic Settings
+" highlighting is very important!
+syntax enable
+
+""" Showing
 set number
-set noshowmode
+set noshowmode  " lightline will do this
 set ruler
 set cursorline
 set showcmd
-set showmatch
 set laststatus=2
-set backspace=start,eol,indent
 set modeline
 set modelines=3
+set showmatch
+set matchtime=2
+set wrap
+set textwidth=0
+set colorcolumn=80
+set list
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+
+""" bell
+set t_vb=
+set novisualbell
+
+""" Searching
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+""" Editing
 set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set shiftround
+set infercase
+set backspace=start,eol,indent
+set nowritebackup
+set nobackup
+set noswapfile
 
-" highlighting is very important!
-syntax enable
-
-" Searching
-set ignorecase
-set smartcase
+""""" Key bindings
+" <Esc><Esc> to disable highlighting search result
+nmap <silent> <Esc><Esc> :nohlsearch<CR>
+" change j,k behavior for wrapped text
+nnoremap j gj
+nnoremap k gk
+" <Tab> to jump matched pair
+nnoremap <Tab> %
+vnoremap <Tab> %
+" directional keys to change window size
+nnoremap <S-Left>  <C-w><<CR>
+nnoremap <S-Right> <C-w>><CR>
+nnoremap <S-Up>    <C-w>-<CR>
+nnoremap <S-Down>  <C-w>+<CR>
+" q to close help/quickfix window
+autocmd MyAutoCmd FileType help,qf nnoremap <buffer> q <C-w>c
 
 " enable mouse
 set mouse=a
