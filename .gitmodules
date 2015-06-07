@@ -4,3 +4,6 @@
 [submodule "zshfiles/z"]
 	path = zshfiles/z
 	url = https://github.com/rupa/z.git
+[submodule "zshfiles/functions/completions/zsh-completions"]
+	path = zshfiles/functions/completions/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
