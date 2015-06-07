@@ -22,7 +22,7 @@ setopt auto_cd
 setopt auto_pushd
 
 ### completion
-fpath=(${HOME}/.zsh/functions/completions ${HOME}/.zsh/functions/completions/zsh-completions/src /usr/local/share/zsh-completions $fpath)
+fpath=(${HOME}/.zsh/functions/completions(N-/) ${HOME}/.zsh/functions/completions/zsh-completions/src(N-/) /usr/local/share/zsh-completions(N-/) $fpath)
 autoload -U compinit && compinit
 
 zstyle ':completion:*' format '%B%d%b'
