@@ -43,3 +43,5 @@ set_git_config core.excludesfile "${HOME}/.gitignore_global"
 run_xenv_setup rbenv
 run_xenv_setup pyenv
 run_xenv_setup ndenv
+
+echo 'done. you may need to restart the shell.'
