@@ -52,6 +52,13 @@ setopt hist_ignorespace
 setopt extendedglob
 
 ### path
+# no duplication!
+typeset -U path cdpath fpath manpath
+# link some variables
+typeset -xT LD_LIBRARY_PATH ld_library_path
+typeset -U ld_library_path
+typeset -xT PKG_CONFIG_PATH pkg_config_path
+typeset -U pkg_config_path
 # add sbin to path when completion with sudo
 [ -z "$sudo_path" ] && typeset -xT SUDO_PATH sudo_path
 typeset -U sudo_path
@@ -201,7 +208,7 @@ fi
 
 ### Added by the Heroku Toolbelt
 if which heroku > /dev/null; then
-  export PATH="/usr/local/heroku/bin:$PATH"
+  path=(/usr/local/heroku/bin(N-/) $path)
 fi
 
 ### source *env initialization scripts
