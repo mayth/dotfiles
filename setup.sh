@@ -33,6 +33,7 @@ lnshome vimfiles .vim
 lnshome _tmux.conf .tmux.conf
 lnshome _screenrc .screenrc
 lnshome _gitignore .gitignore_global
+lnshome _colorrc .colorrc
 
 ### git config
 set_git_config push.default simple
