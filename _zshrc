@@ -4,7 +4,7 @@ autoload -Uz is-at-least
 autoload -Uz colors
 
 ### load z - jump around
-if [ -f ~/.zsh/z/z.sh ]; then
+if [ -f ~/.zsh/z/z.sh ] && ! type _z > /dev/null 2>&1; then
   . ~/.zsh/z/z.sh
 fi
 
@@ -90,12 +90,12 @@ esac
 
 ### vcs_info
 autoload -Uz vcs_info
-if [ -f ~/.zsh/vcs_info.zsh ]; then
+if [ -f ~/.zsh/vcs_info.zsh ] && ! type _update_vcs_info_msg > /dev/null 2>&1; then
   source ~/.zsh/vcs_info.zsh
 fi
 
 ### incremental search
-if [ -f ~/.zsh/auto-fu.zsh/auto-fu.zsh ]; then
+if [ -f ~/.zsh/auto-fu.zsh/auto-fu.zsh ] && ! type zle-line-init > /dev/null 2>&1; then
   source ~/.zsh/auto-fu.zsh/auto-fu.zsh
   function zle-line-init () {
     auto-fu-init
@@ -114,7 +114,7 @@ fi
 
 ### user definition functions
 # create new window on connecting with tmux&mosh
-if [ $TERM = screen ]; then
+if [ $TERM = screen ] && ! type mosh_tmux > /dev/null 2>&1; then
   function mosh_tmux() {
     eval server=\${$#}
     tmux new-window -n $@ "exec ssh $@"
@@ -123,43 +123,45 @@ if [ $TERM = screen ]; then
 fi
 
 # completion for mosh
-function _mosh_hosts {
-  local -a config_hosts
-  local config
-  integer ind
+if ! type _mosh_hosts > /dev/null 2>&1; then
+  function _mosh_hosts {
+    local -a config_hosts
+    local config
+    integer ind
 
-  # If users-hosts matches, we shouldn't complete anything else.
-  if [[ "$IPREFIX" == *@ ]]; then
-    _combination -s '[:@]' my-accounts users-hosts "users=${IPREFIX/@}" hosts "$@" && return
-  else
-    _combination -s '[:@]' my-accounts users-hosts \
-      ${opt_args[-l]:+"users=${opt_args[-l]:q}"} hosts "$@" && return
-  fi
-  if (( ind = ${words[(I)-F]} )); then
-    config=${~words[ind+1]}
-  else
-    config="$HOME/.ssh/config"
-  fi
-  if [[ -r $config ]]; then
-    local IFS=$'\t ' key hosts host
-    while read key hosts; do
-      if [[ "$key" == (#i)host ]]; then
-   for host in ${(z)hosts}; do
-      case $host in
-      (*[*?]*) ;;
-      (*) config_hosts+=("$host") ;;
-      esac
-   done
-      fi
-    done < "$config"
-    if (( ${#config_hosts} )); then
-      _wanted hosts expl 'remote host name' \
-  compadd -M 'm:{a-zA-Z}={A-Za-z} r:|.=* r:|=*' "$@" $config_hosts
+    # If users-hosts matches, we shouldn't complete anything else.
+    if [[ "$IPREFIX" == *@ ]]; then
+      _combination -s '[:@]' my-accounts users-hosts "users=${IPREFIX/@}" hosts "$@" && return
+    else
+      _combination -s '[:@]' my-accounts users-hosts \
+        ${opt_args[-l]:+"users=${opt_args[-l]:q}"} hosts "$@" && return
     fi
-  fi
-}
+    if (( ind = ${words[(I)-F]} )); then
+      config=${~words[ind+1]}
+    else
+      config="$HOME/.ssh/config"
+    fi
+    if [[ -r $config ]]; then
+      local IFS=$'\t ' key hosts host
+      while read key hosts; do
+        if [[ "$key" == (#i)host ]]; then
+    for host in ${(z)hosts}; do
+        case $host in
+        (*[*?]*) ;;
+        (*) config_hosts+=("$host") ;;
+        esac
+    done
+        fi
+      done < "$config"
+      if (( ${#config_hosts} )); then
+        _wanted hosts expl 'remote host name' \
+    compadd -M 'm:{a-zA-Z}={A-Za-z} r:|.=* r:|=*' "$@" $config_hosts
+      fi
+    fi
+  }
 
-compdef _mosh_hosts mosh
+  compdef _mosh_hosts mosh
+fi
 
 ### Editor
 if builtin command -v vim > /dev/null; then
@@ -193,7 +195,7 @@ if which direnv > /dev/null; then
 fi
 
 ### Rake completion
-if [ -f ~/.zsh/rake.zsh ]; then
+if [ -f ~/.zsh/rake.zsh ] && ! type _rake > /dev/null 2>&1; then
   source ~/.zsh/rake.zsh
 fi
 
@@ -208,11 +210,11 @@ for f in ~/.zsh/envs/*; do
 done
 
 ### Make alias 'pbcopy/pbpaste' if they does not exist
-if ! which pbcopy > /dev/null; then
-  if which xsel > /dev/null; then
+if ! which pbcopy > /dev/null 2>&1; then
+  if which xsel > /dev/null 2>&1; then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
-  elif which xclip > /dev/null; then
+  elif which xclip > /dev/null 2>&1; then
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
   fi
