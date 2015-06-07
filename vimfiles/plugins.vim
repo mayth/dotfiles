@@ -30,6 +30,11 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundleLazy 'majutsushi/tagbar', {
+    \ 'autoload': {
+    \   'commands': ['TagbarToggle']
+    \ }
+    \ }
 " git
 NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'gregsexton/gitv', {

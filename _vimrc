@@ -127,6 +127,7 @@ call s:source_plugin_setting('JpFormat')
 call s:source_plugin_setting('syntastic')
 call s:source_plugin_setting('neosnippet')
 call s:source_plugin_setting('vim-indent-guides')
+call s:source_plugin_setting('tagbar')
 call s:source_plugin_setting('vim-pyenv')
 
 """"" end of script
