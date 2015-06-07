@@ -118,6 +118,16 @@ if [ -n "${PAGER#lv}" ]; then
   export LV="-c -l" # -c to enable ASCII escape sequence coloring, -l to no line break in copying
 fi
 
+### ls
+if [ "$(uname)" = "Darwin" ]; then
+  export LSCOLORS=ExGxFxdxCxDxDxxbadacec
+  alias ls='ls -GF'
+else
+  if [ -r "${HOME}/.colorrc" ]; then
+    eval `dircolors "${HOME}/.colorrc"`
+  fi
+  alias ls='ls -F --color=auto'
+fi
 
 ### user definition functions
 # create new window on connecting with tmux&mosh
