@@ -7,10 +7,16 @@ let g:lightline = {
             \       [ 'filename' ]
             \   ],
             \   'right': [
-            \       [ 'lineinfo' ],
+            \       [ 'syntastic', 'lineinfo' ],
             \       [ 'percent' ],
             \       [ 'fileformat', 'fileencoding', 'filetype' ]
             \   ]
+            \ },
+            \ 'component_expand': {
+            \   'syntastic': 'SyntasticStatuslineFlag'
+            \ },
+            \ 'component_type': {
+            \   'syntastic': 'error'
             \ },
             \ 'component_function': {
             \   'pyenv': 'pyenv#statusline#component',

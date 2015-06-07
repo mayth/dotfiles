@@ -80,6 +80,7 @@ endfunction
 """ source plugin settings
 call s:source_plugin_setting('lightline')
 call s:source_plugin_setting('neocomplete')
+call s:source_plugin_setting('syntastic')
 call s:source_plugin_setting('neosnippet')
 call s:source_plugin_setting('vim-pyenv')
 

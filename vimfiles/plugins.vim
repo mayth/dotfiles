@@ -14,6 +14,9 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'cocopon/lightline-hybrid.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 
+""" Development
+NeoBundle 'scrooloose/syntastic'
+
 """ C++
 NeoBundleLazy 'justmao945/vim-clang', {
             \ 'autoload': {
