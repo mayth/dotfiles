@@ -14,6 +14,8 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'cocopon/lightline-hybrid.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 
+NeoBundle 'fuenor/JpFormat.vim'
+
 """ Development
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neosnippet'
