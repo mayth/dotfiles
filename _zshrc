@@ -22,8 +22,8 @@ setopt auto_cd
 setopt auto_pushd
 
 ### completion
+fpath=(${HOME}/.zsh/functions/completions ${HOME}/.zsh/functions/completions/zsh-completions/src /usr/local/share/zsh-completions $fpath)
 autoload -U compinit && compinit
-fpath=(/usr/local/share/zsh-completions $fpath)
 
 zstyle ':completion:*' format '%B%d%b'
 zstyle ':completion:*' group-name ''
