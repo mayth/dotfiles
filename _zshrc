@@ -240,3 +240,4 @@ if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
 
+# vim: et ts=2 sts=0 sw=2 ft=zsh
