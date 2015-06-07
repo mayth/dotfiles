@@ -176,9 +176,8 @@ if ! type _mosh_hosts > /dev/null 2>&1; then
       fi
     fi
   }
-
-  compdef _mosh_hosts mosh
 fi
+compdef _mosh_hosts mosh
 
 ### Editor
 if builtin command -v vim > /dev/null; then
