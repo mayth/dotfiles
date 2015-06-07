@@ -20,5 +20,22 @@ NeoBundleLazy 'justmao945/vim-clang', {
             \ }
             \ }
 
+""" Python
+NeoBundleLazy 'davidhalter/jedi-vim', {
+            \ 'autoload': {
+            \   'filetypes': ['python', 'python3', 'djangohtml'],
+            \ },
+            \ 'build': {
+            \   'mac': 'pip install jedi',
+            \   'unix': 'pip install jedi'
+            \ }
+            \ }
+NeoBundleLazy 'lambdalisue/vim-pyenv', {
+            \ 'depends': ['davidhalter/jedi-vim'],
+            \ 'autoload': {
+            \   'filetypes': ['python', 'python3', 'djangohtml']
+            \ }
+            \ }
+
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'

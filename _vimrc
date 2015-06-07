@@ -64,6 +64,7 @@ endfunction
 
 """ source filetype settings
 call s:source_filetype_setting('cpp')
+call s:source_filetype_setting('python')
 
 
 """"" plugin settings
@@ -79,6 +80,7 @@ endfunction
 """ source plugin settings
 call s:source_plugin_setting('neocomplete')
 call s:source_plugin_setting('neosnippet')
+call s:source_plugin_setting('vim-pyenv')
 
 """"" end of script
 set secure
