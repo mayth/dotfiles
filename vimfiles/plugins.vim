@@ -16,6 +16,7 @@ NeoBundle 'Shougo/neocomplete.vim'
 
 """ Editing
 NeoBundle 'fuenor/JpFormat.vim'
+NeoBundle 'tpope/vim-surround'
 
 """ Development
 NeoBundle 'scrooloose/syntastic'
