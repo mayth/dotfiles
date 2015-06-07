@@ -13,6 +13,11 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'cocopon/lightline-hybrid.vim'
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundleLazy 'thinca/vim-quickrun', {
+            \ 'autoload': {
+            \   'mappings': [['nxo', '<Plug>(quickrun)']]
+            \ }
+            \ }
 
 """ Editing
 NeoBundle 'fuenor/JpFormat.vim'

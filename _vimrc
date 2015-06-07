@@ -84,7 +84,7 @@ nnoremap <S-Right> <C-w>><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 " q to close help/quickfix window
-autocmd MyAutoCmd FileType help,qf nnoremap <buffer> q <C-w>c
+autocmd MyAutoCmd FileType help,qf,quickrun nnoremap <buffer> q <C-w>c
 
 " enable mouse
 set mouse=a
@@ -122,6 +122,7 @@ endfunction
 """ source plugin settings
 call s:source_plugin_setting('lightline')
 call s:source_plugin_setting('neocomplete')
+call s:source_plugin_setting('vim-quickrun')
 call s:source_plugin_setting('JpFormat')
 call s:source_plugin_setting('syntastic')
 call s:source_plugin_setting('neosnippet')
