@@ -24,6 +24,12 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 " git
 NeoBundle 'tpope/vim-fugitive'
+NeoBundleLazy 'gregsexton/gitv', {
+            \ 'depends': ['tpope/vim-fugitive'],
+            \ 'autoload': {
+            \   'commands': ['Gitv']
+            \ }
+            \ }
 
 """ C++
 NeoBundleLazy 'justmao945/vim-clang', {
