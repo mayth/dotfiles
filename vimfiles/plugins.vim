@@ -20,6 +20,7 @@ NeoBundle 'fuenor/JpFormat.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 """ C++
 NeoBundleLazy 'justmao945/vim-clang', {
