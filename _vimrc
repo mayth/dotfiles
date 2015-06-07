@@ -107,6 +107,7 @@ endfunction
 """ source filetype settings
 call s:source_filetype_setting('cpp')
 call s:source_filetype_setting('python')
+call s:source_filetype_setting('ruby')
 
 
 """"" plugin settings
