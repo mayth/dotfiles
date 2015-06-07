@@ -23,7 +23,7 @@ NeoBundleCheck
 
 """"" Basic Settings
 set number
-set showmode
+set noshowmode
 set ruler
 set cursorline
 set showcmd
@@ -78,6 +78,7 @@ function! s:source_plugin_setting(pluginname)
 endfunction
 
 """ source plugin settings
+call s:source_plugin_setting('lightline')
 call s:source_plugin_setting('neocomplete')
 call s:source_plugin_setting('neosnippet')
 call s:source_plugin_setting('vim-pyenv')

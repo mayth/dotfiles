@@ -11,6 +11,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'itchyny/lightline.vim'
 " NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'cocopon/lightline-hybrid.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 
 """ C++
