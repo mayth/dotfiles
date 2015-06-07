@@ -16,6 +16,8 @@ NeoBundle 'Shougo/neocomplete.vim'
 
 """ Development
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 
 """ C++
 NeoBundleLazy 'justmao945/vim-clang', {
@@ -40,6 +42,3 @@ NeoBundleLazy 'lambdalisue/vim-pyenv', {
             \   'filetypes': ['python', 'python3', 'djangohtml']
             \ }
             \ }
-
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
