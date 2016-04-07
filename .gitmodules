@@ -7,3 +7,6 @@
 [submodule "zshfiles/functions/completions/zsh-completions"]
 	path = zshfiles/functions/completions/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
+[submodule "vimfiles/dein/repos/github.com/Shougo/dein.vim"]
+	path = vimfiles/dein/repos/github.com/Shougo/dein.vim
+	url = https://github.com/Shougo/dein.vim
