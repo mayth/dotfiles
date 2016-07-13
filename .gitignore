@@ -1,4 +1,5 @@
 vimfiles/bundle/
 vimfiles/plugin/
+vimfiles/dein/
 vimfiles/.netrwhist
 zshfiles/cache/
