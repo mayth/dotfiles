@@ -1,12 +1,27 @@
-# load
-autoload -Uz add-zsh-hook
-autoload -Uz is-at-least
-autoload -Uz colors
-
-### load z - jump around
-if [ -f ~/.zsh/z/z.sh ] && ! type _z > /dev/null 2>&1; then
-  . ~/.zsh/z/z.sh
+# basic path config
+if [ -z $XDG_CONFIG_HOME ]; then
+  export XDG_CONFIG_HOME=$HOME/.config
 fi
+
+# load plugins with zplug
+if [ -d /usr/local/opt/zplug ]; then
+  ZPLUG_HOME=/usr/local/opt/zplug
+elif [ -z "$ZPLUG_HOME" ]; then
+  ZPLUG_HOME=$HOME/.zplug
+fi
+export ZPLUG_HOME
+if ! type zplug > /dev/null 2>&1 && [ -f ${ZPLUG_HOME}/init.zsh ]; then
+  source ${ZPLUG_HOME}/init.zsh
+  source ~/.zsh/plugins.zsh
+fi
+
+# prompt
+autoload -Uz promptinit
+promptinit
+prompt giddie
+zstyle ':prezto:module:prompt' theme 'giddie'
+
+# load
 
 ### key binding
 bindkey -e
@@ -18,25 +33,7 @@ setopt magic_equal_subst  # filename expand
 REPORTTIME=30             # report the used time when the process used this time.
 
 ### directory moving
-setopt auto_cd
 setopt auto_pushd
-
-### completion
-fpath=(${HOME}/.zsh/functions/completions(N-/) ${HOME}/.zsh/functions/completions/zsh-completions/src(N-/) /usr/local/share/zsh-completions(N-/) $fpath)
-autoload -U compinit && compinit
-
-zstyle ':completion:*' format '%B%d%b'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
-zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
-zstyle ':completion:*:default' menu select=2
-zstyle ':completion:*:default' list-colors ""
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
-zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' verbose yes
-zstyle ':completion:sudo:*' environ PATH="$SUDO_PATH:$PATH"
-zstyle ':completion:*' ignore-parents parent pwd ..
-zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?~' '*\#'
 
 ### history
 # set history size
@@ -64,54 +61,20 @@ typeset -U pkg_config_path
 typeset -U sudo_path
 sudo_path=({,/usr,/usr/local}/sbin(N-/))
 
+
+### completion
+# init
+autoload -Uz compinit
+compinit -u
+
+# Rake completion
+if [ -f ~/.zsh/rake.zsh ] && ! type _rake > /dev/null 2>&1; then
+  source ~/.zsh/rake.zsh
+fi
+
 ### grep
-# GREP_OPTIONS="--binary-files=without-match --directories=recurse --exclude=\*.tmp --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.deps --exclude-dir=.libs --color=auto"
 GREP_OPTIONS="--binary-files=without-match --exclude=\*.tmp --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.deps --exclude-dir=.libs --color=auto"
 alias grep="grep $GREP_OPTIONS"
-
-### Prompt setting
-setopt prompt_subst
-setopt transient_rprompt
-
-default_rprompt="%F{green}[%d]%f"
-case ${UID} in
-# for root user
-0)
-  PROMPT="%B%F{yellow}%n@%m%k %B%F{blue}%c %# %b%f%k"
-  PROMPT2="%B%F{yellow}%n@%m%k %B%F{blue}%c %_> %b%f%k"
-  SPROMPT="zsh: correct '%R' to '%r' [No, Yes, Abort, Edit]?"
-  [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-    PROMPT="%F{magenta}${HOST%%.*}$f ${PROMPT}"
-  ;;
-# for normal user
-*)
-  local kakashi="ただのカカシですな"$'\n'
-  local empty=""
-  PROMPT="%(?.${empty}.${kakashi})%B%F{green}%n@%m%k %B%F{blue}%c %# %b%f%k"
-  PROMPT2="%B%F{green}%n@%m%k %B%F{blue}%c %_> %b%f%k"
-  SPROMPT="zsh: correct %B'%R'%b to %B'%r'%b [No, Yes, Abort, Edit]? "
-  [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-    PROMPT="%F{magenta}${HOST%%.*}%f ${PROMPT}"
-  ;;
-esac
-
-### vcs_info
-autoload -Uz vcs_info
-if [ -f ~/.zsh/vcs_info.zsh ] && ! type _update_vcs_info_msg > /dev/null 2>&1; then
-  source ~/.zsh/vcs_info.zsh
-fi
-
-### incremental search
-if [ -f ~/.zsh/auto-fu.zsh/auto-fu.zsh ] && ! type zle-line-init > /dev/null 2>&1; then
-  source ~/.zsh/auto-fu.zsh/auto-fu.zsh
-  function zle-line-init () {
-    auto-fu-init
-  }
-  zle -N zle-line-init
-  zstyle ':auto-fu:var' postdisplay $''
-  zle -N zle-keymap-select auto-fu-zle-keymap-select
-fi
-zstyle ':completion:*' completer _list _complete _expand _approximate _match _prefix
 
 ### pager
 if [ -n "${PAGER#lv}" ]; then
@@ -129,99 +92,31 @@ else
   alias ls='ls -F --color=auto'
 fi
 
-### user definition functions
-# create new window on connecting with tmux&mosh
-if [ $TERM = screen ] && ! type mosh_tmux > /dev/null 2>&1; then
-  function mosh_tmux() {
-    eval server=\${$#}
-    tmux new-window -n $@ "exec ssh $@"
-  }
-  alias mosh=mosh_tmux
-fi
-
-# completion for mosh
-if ! type _mosh_hosts > /dev/null 2>&1; then
-  function _mosh_hosts {
-    local -a config_hosts
-    local config
-    integer ind
-
-    # If users-hosts matches, we shouldn't complete anything else.
-    if [[ "$IPREFIX" == *@ ]]; then
-      _combination -s '[:@]' my-accounts users-hosts "users=${IPREFIX/@}" hosts "$@" && return
-    else
-      _combination -s '[:@]' my-accounts users-hosts \
-        ${opt_args[-l]:+"users=${opt_args[-l]:q}"} hosts "$@" && return
-    fi
-    if (( ind = ${words[(I)-F]} )); then
-      config=${~words[ind+1]}
-    else
-      config="$HOME/.ssh/config"
-    fi
-    if [[ -r $config ]]; then
-      local IFS=$'\t ' key hosts host
-      while read key hosts; do
-        if [[ "$key" == (#i)host ]]; then
-    for host in ${(z)hosts}; do
-        case $host in
-        (*[*?]*) ;;
-        (*) config_hosts+=("$host") ;;
-        esac
-    done
-        fi
-      done < "$config"
-      if (( ${#config_hosts} )); then
-        _wanted hosts expl 'remote host name' \
-    compadd -M 'm:{a-zA-Z}={A-Za-z} r:|.=* r:|=*' "$@" $config_hosts
-      fi
-    fi
-  }
-fi
-compdef _mosh_hosts mosh
-
 ### Editor
-if builtin command -v vim > /dev/null; then
-  export EDITOR='vim'
+if builtin command -v nvim > /dev/null; then
+  EDITOR=nvim
+elif builtin command -v vim > /dev/null; then
+  EDITOR='vim'
 elif builtin command -v vi > /dev/null; then
-  export EDITOR='vi'
+  EDITOR='vi'
 elif builtin command -v nano > /dev/null; then
-  export EDITOR='nano'
+  EDITOR='nano'
 fi
-
-# Auto exec tmux
-#if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > /dev/null; then
-#    if ( tmux has-session ); then
-#        session=`tmux list-sessions | grep -e '^[0-9].*]$' | head -n 1 | sed -e 's/^\([0-9]\+\).*$/\1/'`
-#            if [ -n "$session" ]; then
-#            echo "Attache tmux session $session."
-#                tmux attach-session -t $session
-#        else
-#            echo "Session has been already attached."
-#            tmux list-sessions
-#            fi
-#    else
-#        echo "Create new tmux session."
-#        tmux
-#    fi
-#fi
+export EDITOR
 
 ### direnv
-if which direnv > /dev/null; then
-  eval "$(direnv hook zsh)"
-fi
-
-### Rake completion
-if [ -f ~/.zsh/rake.zsh ] && ! type _rake > /dev/null 2>&1; then
-  source ~/.zsh/rake.zsh
-fi
+type direnv > /dev/null 2>&1 && eval "$(direnv hook zsh)"
 
 ### Added by the Heroku Toolbelt
-if which heroku > /dev/null; then
-  path=(/usr/local/heroku/bin(N-/) $path)
-fi
+type heroku > /dev/null 2>&1 && path=(/usr/local/heroku/bin(N-/) $path)
 
 ### source *env initialization scripts
 for f in ~/.zsh/envs/*; do
+  source $f
+done
+
+### source config scripts
+for f in ~/.zsh/conf.d/*.zsh; do
   source $f
 done
 

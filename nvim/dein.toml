@@ -1,0 +1,188 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+  if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+  elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+  elseif executable('gmake')
+    let cmd = 'gmake'
+  else
+    let cmd = 'make'
+  endif
+  let g:dein#plugin.build = cmd
+'''
+
+[[plugins]]
+repo = 'Shougo/vimshell.vim'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+    let g:lightline = {
+                \ 'colorscheme': 'hybrid',
+                \ 'active': {
+                \   'left': [
+                \       [ 'mode', 'paste' ],
+                \       [ 'pyenv' ],
+                \       [ 'filename' ]
+                \   ],
+                \   'right': [
+                \       [ 'syntastic', 'lineinfo' ],
+                \       [ 'percent' ],
+                \       [ 'fileformat', 'fileencoding', 'filetype' ],
+                \       [ 'fugitive' ]
+                \   ]
+                \ },
+                \ 'component_expand': {
+                \   'syntastic': 'SyntasticStatuslineFlag'
+                \ },
+                \ 'component_type': {
+                \   'syntastic': 'error'
+                \ },
+                \ 'component_function': {
+                \   'pyenv': 'pyenv#statusline#component',
+                \   'filename': 'MyFilename',
+                \   'fugitive': 'MyFugitive'
+                \ }
+                \ }
+
+    function! MyModified()
+        return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    endfunction
+
+    function! MyReadonly()
+        return &ft !~? 'help' && &readonly ? 'RO' : ''
+    endfunction
+
+    function! MyFilename()
+        let fname = expand('%:t')
+        return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+            \ ('' != fname ? fname : '[No Name]') .
+            \ ('' != MyModified() ? ' ' . MyModified() : '')
+    endfunction
+
+    function! MyFugitive()
+        return exists('*fugitive#head') ? fugitive#head() : ''
+    endfunction
+'''
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'cocopon/lightline-hybrid.vim'
+depends = ['itchyny/lightline.vim', 'w0ng/vim-hybrid']
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+    let g:deoplete#enable_at_startup = 1
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+hook_add = '''
+    " Example configuration from neosnippet.vim README
+
+    " Plugin key-mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)"
+    \: pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)"
+    \: "\<TAB>"
+
+    " For snippet_complete marker.
+    if has('conceal')
+        set conceallevel=2 concealcursor=niv
+    endif
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
+    if !has('gui_running')
+        let g:indent_guides_auto_colors = 0
+        hi IndentGuidesOdd ctermbg=236
+        hi IndentGuidesEven ctermbg=238
+    endif
+'''
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+depends = ['scrooloose/nerdtree']
+
+[[plugins]]
+repo = 'sudo.vim'
+
+[[plugins]]
+repo = 'fuenor/JpFormat.vim'
+hook_add = '''
+    set formatexpr=jpfmt#formatexpr()
+'''
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'vim-scripts/Align'
+
+[[plugins]]
+repo = 'vim-scripts/PreserveNoEOL'
+
+[[plugins]]
+repo = 'Konfekt/FastFold'
+
+
+### Development
+[[plugins]]
+repo = 'scrooloose/syntastic'
+depends = ['itchyny/lightline.vim']
+hook_add = '''
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 0
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+
+    if exists('g:lightline')
+        let g:syntastic_mode_map = { 'mode': 'passive' }
+        augroup AutoSyntastic
+            autocmd!
+            autocmd BufWritePost * call s:syntastic()
+        augroup END
+        function! s:syntastic()
+            SyntasticCheck
+            call lightline#update()
+        endfunction
+    endif
+'''
+
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'thinca/vim-ref'
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
