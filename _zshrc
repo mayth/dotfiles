@@ -61,6 +61,11 @@ typeset -U pkg_config_path
 typeset -U sudo_path
 sudo_path=({,/usr,/usr/local}/sbin(N-/))
 
+# Android SDK
+path=($path ~/Library/Android/sdk/platform-tools(N-/))
+
+# heroku
+type heroku > /dev/null 2>&1 && path=(/usr/local/heroku/bin(N-/) $path)
 
 ### completion
 # init
@@ -106,9 +111,6 @@ export EDITOR
 
 ### direnv
 type direnv > /dev/null 2>&1 && eval "$(direnv hook zsh)"
-
-### Added by the Heroku Toolbelt
-type heroku > /dev/null 2>&1 && path=(/usr/local/heroku/bin(N-/) $path)
 
 ### source *env initialization scripts
 for f in ~/.zsh/envs/*; do
