@@ -9,10 +9,10 @@ zplug "mollifier/cd-gitroot"
 zplug "b4b4r07/emoji-cli", if:"which jq"
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "zsh-users/zsh-completions"
 zplug "mrowa44/emojify", as:command
-zplug "hchbaw/auto-fu.zsh", at:"pu"
+zplug "hchbaw/auto-fu.zsh", at:"pu", defer:0
 zplug "rupa/z", use:z.sh
 zplug "andrewferrier/fzf-z", on:"rupa/z"
 
