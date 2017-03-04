@@ -112,6 +112,11 @@ export EDITOR
 ### direnv
 type direnv > /dev/null 2>&1 && eval "$(direnv hook zsh)"
 
+### Rake completion
+if [ -f ~/.zsh/rake.zsh ] && ! type _rake > /dev/null 2>&1; then
+  source ~/.zsh/rake.zsh
+fi
+
 ### source *env initialization scripts
 for f in ~/.zsh/envs/*; do
   source $f

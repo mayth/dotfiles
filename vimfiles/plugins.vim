@@ -18,6 +18,7 @@ NeoBundleLazy 'thinca/vim-quickrun', {
             \   'mappings': [['nxo', '<Plug>(quickrun)']]
             \ }
             \ }
+NeoBundle 'vim-scripts/sudo.vim'
 
 """ Editing
 NeoBundle 'fuenor/JpFormat.vim'
