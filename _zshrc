@@ -1,16 +1,16 @@
 # basic path config
-if [ -z $XDG_CONFIG_HOME ]; then
+if [[ -z $XDG_CONFIG_HOME ]]; then
   export XDG_CONFIG_HOME=$HOME/.config
 fi
 
 # load plugins with zplug
-if [ -d /usr/local/opt/zplug ]; then
+if [[ -d /usr/local/opt/zplug ]]; then
   ZPLUG_HOME=/usr/local/opt/zplug
-elif [ -z "$ZPLUG_HOME" ]; then
+elif [[ -z "$ZPLUG_HOME" ]]; then
   ZPLUG_HOME=$HOME/.zplug
 fi
 export ZPLUG_HOME
-if ! type zplug > /dev/null 2>&1 && [ -f ${ZPLUG_HOME}/init.zsh ]; then
+if ! type zplug > /dev/null 2>&1 && [[ -f ${ZPLUG_HOME}/init.zsh ]]; then
   source ${ZPLUG_HOME}/init.zsh
   source ~/.zsh/plugins.zsh
 fi
@@ -57,7 +57,7 @@ typeset -U ld_library_path
 typeset -xT PKG_CONFIG_PATH pkg_config_path
 typeset -U pkg_config_path
 # add sbin to path when completion with sudo
-[ -z "$sudo_path" ] && typeset -xT SUDO_PATH sudo_path
+[[ -z "$sudo_path" ]] && typeset -xT SUDO_PATH sudo_path
 typeset -U sudo_path
 sudo_path=({,/usr,/usr/local}/sbin(N-/))
 
@@ -73,7 +73,7 @@ autoload -Uz compinit
 compinit -u
 
 # Rake completion
-if [ -f ~/.zsh/rake.zsh ] && ! type _rake > /dev/null 2>&1; then
+if [[ -f ~/.zsh/rake.zsh ]] && ! type _rake > /dev/null 2>&1; then
   source ~/.zsh/rake.zsh
 fi
 
@@ -82,16 +82,16 @@ GREP_OPTIONS="--binary-files=without-match --exclude=\*.tmp --exclude-dir=.svn -
 alias grep="grep $GREP_OPTIONS"
 
 ### pager
-if [ -n "${PAGER#lv}" ]; then
+if [[ -n "${PAGER#lv}" ]]; then
   export LV="-c -l" # -c to enable ASCII escape sequence coloring, -l to no line break in copying
 fi
 
 ### ls
-if [ "$(uname)" = "Darwin" ]; then
+if [[ "$(uname)" == "Darwin" ]]; then
   export LSCOLORS=ExGxFxdxCxDxDxxbadacec
   alias ls='ls -GF'
 else
-  if [ -r "${HOME}/.colorrc" ]; then
+  if [[ -r "${HOME}/.colorrc" ]]; then
     eval `dircolors "${HOME}/.colorrc"`
   fi
   alias ls='ls -F --color=auto'
@@ -113,7 +113,7 @@ export EDITOR
 type direnv > /dev/null 2>&1 && eval "$(direnv hook zsh)"
 
 ### Rake completion
-if [ -f ~/.zsh/rake.zsh ] && ! type _rake > /dev/null 2>&1; then
+if [[ -f ~/.zsh/rake.zsh ]] && ! type _rake > /dev/null 2>&1; then
   source ~/.zsh/rake.zsh
 fi
 
@@ -138,7 +138,7 @@ if ! which pbcopy > /dev/null 2>&1; then
   fi
 fi
 
-if [ -f ~/.zshrc.local ]; then
+if [[ -f ~/.zshrc.local ]]; then
   source ~/.zshrc.local
 fi
 
