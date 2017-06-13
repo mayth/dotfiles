@@ -87,3 +87,16 @@ on_ft = ['ruby']
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = ['go']
+
+
+### Elixir
+[[plugins]]
+repo = 'elixir-lang/vim-elixir'
+on_ft = ['elixir']
+
+[[plugins]]
+repo = 'awetzel/elixir.nvim'
+depends = ['elixir-lang/vim-elixir']
+hook_post_update = '''
+  let g:dein#plugin.build = './install.sh'
+'''
