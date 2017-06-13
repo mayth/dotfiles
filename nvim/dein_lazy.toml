@@ -67,26 +67,7 @@ depends = ['Shougo/deoplete.vim']
 on_ft = ['python', 'python3', 'djangohtml']
 
 [[plugins]]
-repo = 'lambdalisue/vim-pyenv'
-depends = ['davidhalter/jedi-vim']
-on_ft = ['python', 'python3', 'djangohtml']
-hook_source = '''
-    if jedi#init_python()
-        function! s:jedi_auto_force_py_version() abort
-            let major_version = pyenv#python#get_internal_major_version()
-            call jedi#force_py_version(major_version)
-        endfunction
-        augroup vim-pyenv-custom-augroup
-            autocmd! *
-            autocmd vim-pyenv-activate-post * call s:jedi_auto_force_py_version()
-            autocmd vim-pyenv-deactivate-post * call s:jedi_auto_force_py_version()
-        augroup END
-    endif
-'''
-
-[[plugins]]
 repo = 'nvie/vim-flake8'
-depends = ['vim-pyenv']
 on_ft = ['python', 'python3', 'djangohtml']
 
 
