@@ -12,9 +12,7 @@ let g:rc_dir = expand('$XDG_CONFIG_HOME/nvim')
 """ init dein
 execute 'source' expand(g:rc_dir . '/dein_init.vim')
 
-if has('nvim')
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
 
 let g:hybrid_custom_term_color = 1
