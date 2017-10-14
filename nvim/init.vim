@@ -36,6 +36,7 @@ set textwidth=0
 set colorcolumn=80
 set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+set mouse=a
 
 """ Editing
 set expandtab
