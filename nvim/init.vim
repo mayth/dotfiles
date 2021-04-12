@@ -54,6 +54,8 @@ set nowritebackup
 set nobackup
 set noswapfile
 
+set diffopt=internal,filler,algorithm:histogram,indent-heuristic
+
 set secure
 
 " vim: et ts=4 sts=0 sw=4
