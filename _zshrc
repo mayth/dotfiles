@@ -1,92 +1,90 @@
-# basic path config
-if [[ -z $XDG_CONFIG_HOME ]]; then
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+  command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+  command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+  zinit-zsh/z-a-rust \
+  zinit-zsh/z-a-as-monitor \
+  zinit-zsh/z-a-patch-dl \
+  zinit-zsh/z-a-bin-gem-node
+
+### End of Zinit's installer chunk
+
+if [[ -z "$XDG_CONFIG_HOME" ]]; then
   export XDG_CONFIG_HOME=$HOME/.config
 fi
 
-# load plugins with zplug
-if [[ -d /usr/local/opt/zplug ]]; then
-  ZPLUG_HOME=/usr/local/opt/zplug
-elif [[ -z "$ZPLUG_HOME" ]]; then
-  ZPLUG_HOME=$HOME/.zplug
+# plugins
+zinit ice lucid wait''; zinit light zsh-users/zsh-completions
+zinit ice lucid wait''; zinit light zsh-users/zsh-autosuggestions
+zinit ice lucid wait''; zinit light zdharma/fast-syntax-highlighting
+zinit ice lucid wait''; zinit light zdharma/history-search-multi-word
+zinit ice lucid wait''; zinit light b4b4r07/enhancd
+zinit ice lucid wait''; zinit light mollifier/anyframe
+
+autoload -Uz compinit && compinit
+zstyle ':completion:*:default' menu select=1 
+
+# iTerm2 integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
 fi
-export ZPLUG_HOME
-if ! type zplug > /dev/null 2>&1 && [[ -f ${ZPLUG_HOME}/init.zsh ]]; then
-  source ${ZPLUG_HOME}/init.zsh
-  source ~/.zsh/plugins.zsh
+
+# starship
+if command -v starship > /dev/null; then
+  eval "$(starship init zsh)"
 fi
 
-# prompt
-autoload -Uz promptinit
-promptinit
-prompt giddie
-zstyle ':prezto:module:prompt' theme 'giddie'
-
-# load
-
-### key binding
-bindkey -e
-
-### misc
+# <3
 setopt no_beep
-setopt hist_expand        # auto expand history in completion
-setopt magic_equal_subst  # filename expand
-REPORTTIME=30             # report the used time when the process used this time.
-
-### directory moving
+setopt no_hist_beep
+setopt no_list_beep
+setopt magic_equal_subst
 setopt auto_pushd
 
-### history
-# set history size
-export HISTSIZE=2000
-export HISTFILE="$HOME/.history"
+export HISTSIZE=10000
+export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
+setopt append_history
+setopt share_history
+setopt hist_expand
+setopt hist_no_store
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
 
-# ignore duplicate commands and begin with space
-setopt hist_ignorealldups
-setopt hist_ignorespace
-
-### enable extended-glob
 setopt extendedglob
 
-### path
-# no duplication!
+# global path config
 typeset -U path cdpath fpath manpath
-# link some variables
 typeset -xT LD_LIBRARY_PATH ld_library_path
 typeset -U ld_library_path
 typeset -xT PKG_CONFIG_PATH pkg_config_path
 typeset -U pkg_config_path
-# add sbin to path when completion with sudo
 [[ -z "$sudo_path" ]] && typeset -xT SUDO_PATH sudo_path
 typeset -U sudo_path
 sudo_path=({,/usr,/usr/local}/sbin(N-/))
 
-# Android SDK
-path=($path ~/Library/Android/sdk/platform-tools(N-/))
-
-# heroku
-type heroku > /dev/null 2>&1 && path=(/usr/local/heroku/bin(N-/) $path)
-
-### completion
-# init
-autoload -Uz compinit
-compinit -u
-
-# Rake completion
-if [[ -f ~/.zsh/rake.zsh ]] && ! type _rake > /dev/null 2>&1; then
-  source ~/.zsh/rake.zsh
-fi
-
-### grep
-GREP_OPTIONS="--binary-files=without-match --exclude=\*.tmp --exclude-dir=.svn --exclude-dir=.git --exclude-dir=.deps --exclude-dir=.libs --color=auto"
-alias grep="grep $GREP_OPTIONS"
-
-### pager
-if [[ -n "${PAGER#lv}" ]]; then
-  export LV="-c -l" # -c to enable ASCII escape sequence coloring, -l to no line break in copying
-fi
-
-### ls
+# ls
 if [[ "$(uname)" == "Darwin" ]]; then
   export LSCOLORS=ExGxFxdxCxDxDxxbadacec
   alias ls='ls -GF'
@@ -97,53 +95,25 @@ else
   alias ls='ls -F --color=auto'
 fi
 
-### Editor
-if builtin command -v nvim > /dev/null; then
+# we need vim
+if command -v nvim > /dev/null; then
   EDITOR=nvim
-elif builtin command -v vim > /dev/null; then
-  EDITOR='vim'
-elif builtin command -v vi > /dev/null; then
-  EDITOR='vi'
-elif builtin command -v nano > /dev/null; then
-  EDITOR='nano'
+elif command -v vim > /dev/null; then
+  EDITOR=vim
+elif command -v vi > /dev/null; then
+  EDITOR=vi
+elif command -v nano > /dev/null; then
+  EDITOR=nano
 fi
 export EDITOR
 
-### direnv
-type direnv > /dev/null 2>&1 && eval "$(direnv hook zsh)"
+command -v direnv > /dev/null && eval "$(direnv hook zsh)"
 
-### Rake completion
-if [[ -f ~/.zsh/rake.zsh ]] && ! type _rake > /dev/null 2>&1; then
-  source ~/.zsh/rake.zsh
-fi
+# load machine-local config
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-### source *env initialization scripts
-for f in ~/.zsh/envs/*; do
-  source $f
-done
-
-### source config scripts
-for f in ~/.zsh/conf.d/*.zsh; do
-  source $f
-done
-
-### Make alias 'pbcopy/pbpaste' if they does not exist
-if ! which pbcopy > /dev/null 2>&1; then
-  if which xsel > /dev/null 2>&1; then
-    alias pbcopy='xsel --clipboard --input'
-    alias pbpaste='xsel --clipboard --output'
-  elif which xclip > /dev/null 2>&1; then
-    alias pbcopy='xclip -selection clipboard'
-    alias pbpaste='xclip -selection clipboard -o'
-  fi
-fi
-
-if [[ -f ~/.zshrc.local ]]; then
-  source ~/.zshrc.local
-fi
-
-if [[ -x /usr/libexec/path_helper ]]; then
-  eval $(/usr/libexec/path_helper -s)
-fi
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/mayth/.sdkman"
+[[ -s "/Users/mayth/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/mayth/.sdkman/bin/sdkman-init.sh"
 
 # vim: et ts=2 sts=0 sw=2 ft=zsh
