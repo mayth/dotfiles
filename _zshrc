@@ -55,6 +55,8 @@ if command -v starship > /dev/null; then
 fi
 
 # <3
+bindkey -e
+
 setopt no_beep
 setopt no_hist_beep
 setopt no_list_beep
