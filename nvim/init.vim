@@ -9,6 +9,10 @@ augroup END
 """ base path
 let g:rc_dir = expand('$XDG_CONFIG_HOME/nvim')
 
+""" set host provider
+let g:python_host_prog = expand('~/.pyenv/versions/nvim-py2/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/nvim-py3/bin/python')
+
 """ init dein
 execute 'source' expand(g:rc_dir . '/dein_init.vim')
 
