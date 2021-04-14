@@ -1,0 +1,9 @@
+[cmd_duration]
+min_time = 5000
+show_milliseconds = true
+
+[directory]
+truncation_symbol = "…/"
+
+[status]
+disabled = false
