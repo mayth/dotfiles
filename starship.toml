@@ -1,3 +1,5 @@
+format = "${custom.arch}$all"
+
 [cmd_duration]
 min_time = 5000
 show_milliseconds = true
@@ -7,3 +9,8 @@ truncation_symbol = "…/"
 
 [status]
 disabled = false
+
+[custom.arch]
+description = "shows the CPU architecture"
+when = "true"
+command = "uname -m"
