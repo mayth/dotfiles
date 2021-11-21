@@ -135,7 +135,10 @@ repo = 'Xuyuanp/nerdtree-git-plugin'
 depends = ['scrooloose/nerdtree']
 
 [[plugins]]
-repo = 'sudo.vim'
+repo = 'lambdalisue/suda.vim'
+hook_add = '''
+    let g:suda_smart_edit = 1
+'''
 
 [[plugins]]
 repo = 'fuenor/JpFormat.vim'

@@ -9,6 +9,11 @@ augroup END
 """ base path
 let g:rc_dir = expand('$XDG_CONFIG_HOME/nvim')
 
+""" set host provider
+let g:pyenv_root = substitute(system('pyenv root'), '\n\+$', '', '')
+let g:python_host_prog = g:pyenv_root . '/versions/nvim-py2/bin/python'
+let g:python3_host_prog = g:pyenv_root . '/versions/nvim-py3/bin/python'
+
 """ init dein
 execute 'source' expand(g:rc_dir . '/dein_init.vim')
 
@@ -37,6 +42,7 @@ set colorcolumn=80
 set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 set mouse=a
+set clipboard+=unnamedplus
 
 """ Editing
 set expandtab
@@ -49,6 +55,8 @@ set backspace=start,eol,indent
 set nowritebackup
 set nobackup
 set noswapfile
+
+set diffopt=internal,filler,algorithm:histogram,indent-heuristic
 
 set secure
 
