@@ -48,7 +48,7 @@ if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
 fi
 
 # gpg-agent
-if command -v gpg > /dev/null && ! gpg-agent > /dev/null 2>&1 ; then
+if command -v gpg > /dev/null; then
   gpgconf --launch gpg-agent
   export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 fi
