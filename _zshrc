@@ -164,6 +164,11 @@ if command -v shadowenv > /dev/null; then
   eval "$(shadowenv init zsh)"
 fi
 
+# Raspberry Pi Pico SDK
+if [ -d $HOME/pico/pico-sdk ]; then
+  export PICO_SDK_PATH="$HOME/pico/pico-sdk"
+fi
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/mayth/.sdkman"
 [[ -s "/Users/mayth/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/mayth/.sdkman/bin/sdkman-init.sh"
