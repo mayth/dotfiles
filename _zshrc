@@ -31,7 +31,7 @@ zinit ice lucid wait''; zinit light zsh-users/zsh-completions
 zinit ice lucid wait''; zinit light zsh-users/zsh-autosuggestions
 zinit ice lucid wait''; zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice lucid wait''; zinit light zdharma-continuum/history-search-multi-word
-zinit ice lucid wait''; zinit light b4b4r07/enhancd
+# zinit ice lucid wait''; zinit light b4b4r07/enhancd
 zinit ice lucid wait''; zinit light paulirish/git-open
 
 autoload -Uz compinit && compinit
