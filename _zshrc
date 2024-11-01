@@ -159,6 +159,11 @@ fi
 # .NET Core SDK tools
 path=($path $HOME/.dotnet/tools(N-/))
 
+# shadowenv
+if command -v shadowenv > /dev/null; then
+  eval "$(shadowenv init zsh)"
+fi
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/mayth/.sdkman"
 [[ -s "/Users/mayth/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/mayth/.sdkman/bin/sdkman-init.sh"
