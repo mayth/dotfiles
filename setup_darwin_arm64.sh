@@ -10,7 +10,7 @@ fi
 brew install \
     anyenv \
     bat \
-    exa \
+    eza \
     fd \
     fzf \
     ghq \

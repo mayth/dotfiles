@@ -120,9 +120,9 @@ else
 fi
 
 # alias
-if command -v exa > /dev/null; then
-  alias exa='exa --icons'
-  alias ls='exa'
+if command -v eza > /dev/null; then
+  alias eza='eza --icons'
+  alias ls='eza'
 fi
 command -v bat > /dev/null && alias cat='bat'
 command -v procs > /dev/null && alias ps='procs'
