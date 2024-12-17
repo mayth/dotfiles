@@ -26,6 +26,7 @@ if [[ -z "$XDG_CONFIG_HOME" ]]; then
 fi
 
 # plugins
+zinit light asdf-vm/asdf
 zinit light mollifier/anyframe
 zinit ice lucid wait''; zinit light zsh-users/zsh-completions
 zinit ice lucid wait''; zinit light zsh-users/zsh-autosuggestions
@@ -55,9 +56,6 @@ fi
 
 # iTerm2 integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# anyenv
-command -v anyenv > /dev/null && eval "$(anyenv init -)"
 
 # pyenv
 if command -v pyenv > /dev/null && [ -d $(pyenv root)/plugins/pyenv-virtualenv ]; then
@@ -168,10 +166,6 @@ fi
 if [ -d $HOME/pico/pico-sdk ]; then
   export PICO_SDK_PATH="$HOME/pico/pico-sdk"
 fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/mayth/.sdkman"
-[[ -s "/Users/mayth/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/mayth/.sdkman/bin/sdkman-init.sh"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
