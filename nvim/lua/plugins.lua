@@ -85,7 +85,18 @@ return {
         end,
         config = function()
             require("nvim-treesitter.configs").setup {
-                ensure_installed = "all",
+                ensure_installed = {
+                    "bash", "c", "cmake", "comment", "cpp", "csv",
+                    "git_config", "git_rebase", "gitattributes", "gitignore",
+                    "go", "gomod", "hjson", "hocon", "java", "javascript",
+                    "jinja", "jinja_inline", "jq", "json", "jsonc",
+                    "lua", "make", "markdown", "markdown_inline", "nginx",
+                    "objdump", "perl", "properties", "proto", "python",
+                    "rbs", "regex", "requirements", "robots", "rst", "ruby",
+                    "rust", "scala", "sql", "ssh_config", "starlark", "strace",
+                    "swift", "terraform", "tmux", "toml", "tsv", "typescript",
+                    "vim", "xml", "yaml"
+                },
                 sync_install = false,
                 highlight = {
                     enable = true,
