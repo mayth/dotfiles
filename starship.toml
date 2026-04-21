@@ -1,4 +1,7 @@
-format = "${custom.arch}$all"
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+format = "${time}${custom.arch}$all"
 
 [cmd_duration]
 min_time = 5000
@@ -14,3 +17,8 @@ disabled = false
 description = "shows the CPU architecture"
 when = "true"
 command = "uname -m"
+
+[time]
+disabled = false
+format = '[$time]($style) '
+
